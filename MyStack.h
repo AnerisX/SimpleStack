@@ -16,8 +16,20 @@ public:
 	MyStack(){}
 	MyStack(const MyStack& s)
 	{
-		top = s.top;
-		size = s.size;
+		MyStack tempS;
+		Node* temp = s.top;
+		while(temp != nullptr)
+		{
+			tempS.Push(temp->data);
+			temp = temp->prev;
+		}
+
+		temp = tempS.top;
+		while (temp != nullptr)
+		{
+			Push(temp->data);
+			temp = temp->prev;
+		}
 	}
 	~MyStack()
 	{
@@ -27,8 +39,8 @@ public:
 
 	void operator= (const MyStack& s)
 	{
-		top = s.top;
-		size = s.size;
+		MyStack temp(s);
+		std::swap(top, temp.top);
 	}
 	void Push(T input)
 	{
